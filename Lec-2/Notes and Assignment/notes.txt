@@ -1,0 +1,9 @@
+npm install react
+npm install react-dom
+
+npx -> execute using npm
+
+npx parcel index.html
+
+HMR - Hot Module Reloading 
+File Watcher Algorithm - C++
