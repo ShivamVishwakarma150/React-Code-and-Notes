@@ -1,0 +1,63 @@
+Chap 03 :- Laying the foundation
+=================================
+
+Pollyfill
+----------
+-> to make older browser understand our new code, the new code is converted into a older code which can understand called pollyfill.
+
+-> Babel do this conversion automatically.
+Eg:- ES6 is the newer version of javascript.
+If i'am working with 1999 browser.
+my browser will not understand what is this const,newPromise etc.
+so, there is a replacement code for these functionalities which is compatible with older version browsers.
+
+-> so, this is what happen when we write "browserlist" -> owr code is converted to older version.
+
+Babel
+-----
+
+-> is a javascript package/library used to convert code written in newer versions of JS (ECMAScript 2015,2016,2017 etc) into code that can be run in older JS Engines.
+
+To run our app, command is :-
+
+npx parcel index.html
+
+we always don't have to write this command. Generally we build a script inside package.json which runs this command in easy way.
+
+package.json
+------------
+"scripts":{
+    "start":"parcel index.html"
+    "test":"jest"
+}
+
+So, to tun the project, I've to use :-
+npm run start 
+shortcut :- npm start 
+
+"start" script execute by this command.
+
+Build command
+-------------
+
+npx parcel build index.html
+----------------------------
+
+"scripts":{
+    "build":"parcel build index.html"
+}
+
+Note :-
+-------
+
+npx = npm run 
+so, npm run build will build a project.
+
+
+-------------------------------------------------------------------
+
+
+Console logs are not removed automatically by parcel. you have to configure your projects to remove it.
+
+-> there is a package which helps to remove console logs :-
+Babel-plugin-transform-remove-console
