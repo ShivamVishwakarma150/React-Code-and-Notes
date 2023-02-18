@@ -798,7 +798,7 @@ const Body = () => {
 const Footer = () => {
     return (
         <div className="footer-div">
-          <span className="footer-text">Developed by Shivam Vishwakarma<span>😎 <span className="num">2023</span></span></span>
+          <span className="footer-text">Developed by <span className="num">Shivam Vishwakarma</span><span>😎 <span className="num">2023</span></span></span>
         </div>
       )
 };
