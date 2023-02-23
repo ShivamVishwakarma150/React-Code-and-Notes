@@ -8,9 +8,9 @@ What are the challenges in Modern web development ?
 - Loosely Coupled and Extensible 
     - Bank App 
         - Personal Banking
-        - NRI Banking 
-            /     \
-           /       \ 
+        - NRI Banking - without disturbing the app
+            /     \     we must able to update the 
+           /       \    functionality.
         Mobile      If you update some functionality 
         (User)      then  it reflected to that user 
                     without having any problem. 
