@@ -1,2 +1,0 @@
-Generally we just have one root and one Render method.
-
