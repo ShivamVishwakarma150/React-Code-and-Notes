@@ -1,0 +1,46 @@
+What is React and Why we need React?
+
+What are the challenges in Modern web development ?
+- Modern wev users are using web from smart devices 80%>
+- Unified UX Youtube in Smartphone / Youtube in Desktop
+    An application must have same behavior across any devices.
+- Fluid UX Eg: google multiple pages -> infinite scrolling
+- Loosely Coupled and Extensible 
+    - Bank App 
+        - Personal Banking
+        - NRI Banking 
+            /     \
+           /       \ 
+        Mobile      If you update some functionality 
+        (User)      then  it reflected to that user 
+                    without having any problem. 
+
+
+What is Solution ?
+------------------
+- Better to Build SPA [Single Page Application]
+- SPA have all the facilities
+    - Fluid UX
+    - Loosely Coupled and Extensible
+    - Unified UX
+    - Component Based Design
+
+How to build SPA ?
+- can we build javaScript and JQuery : Yes
+
+What are the issues with javaScript and JQuery?
+- Lot of DOM Manipulation
+- Lot or references
+- Lot of Coding
+- Lot of event handling
+- Explicit Ajax
+
+
+What is Solution ?
+- Better use library or framework
+- React, Angular, Vue, Ember, BackBone, Knockout etc..
+- [React => Facebook]
+- [Angular => Google]
+
+What is React ?
+React vs Angular ?
