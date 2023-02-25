@@ -1,0 +1,46 @@
+- You can download react and install library using NPM
+        www.npmjs.org
+
+- Open Terminal in your project
+npm install react -> install latest version
+npm install react@17
+npm install @babel/standalone
+
+- All your library files are copied into a folder
+    "node_modules"
+
+
+Note: Node.js is configured with "umd", hence import library from "umd" not "cjs".
+
+Home.html
+---------
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <script src="../node_modules/react/umd/react.development.js"></script>
+    <script src="../node_modules/react-dom/umd/react-dom.development.js"></script>
+    <script src="../node_modules/@babel/standalone/babel.js"></script>
+    <!-- by default type="text/javascript" -->
+    <script type="text/babel">
+        // old technique Upto React 17
+       /* ReactDOM.render(
+            "Welcome to React !!",document.querySelector("p")
+        ) */
+
+        // React18
+        // Now we not got any warning
+        const root = ReactDOM.createRoot(document.querySelector("p"));
+        root.render("Hello React");
+    </script>
+</head>
+<body>
+    <h2>Home - Using React</h2>
+    <p></p>
+
+    <a href="index.html">back to Index</a>
+</body>
+</html>
