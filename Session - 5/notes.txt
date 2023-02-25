@@ -44,3 +44,21 @@ Home.html
     <a href="index.html">back to Index</a>
 </body>
 </html>
+
+
+Note : You can configure "ESLINT" to define
+    a) JavaScript Version "ES6, ES7 ..."
+    b) Module System
+
+
+Creating a new React Application
+--------------------------------
+Note: you can build a complete empty react application by using "Web Pack" 
+1. Go to any location on your PC 
+2. Open location in command prompt
+    
+    d:\>npx create-react-app react-shopping
+
+4. To Start and Run project
+    D:\react-shopping> npm start
+    http://localhost:3000
