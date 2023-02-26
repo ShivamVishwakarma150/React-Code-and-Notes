@@ -1,0 +1,17 @@
+            React Components
+a) Presentation 
+    HTML
+b) Styles
+    CSS 
+c) Logic
+    JSX
+
+- Function Component
+
+
+JSX 
+-Entire markup must be in a container
+    <div>       <>      <React.Fragment>
+    </div>      </>     </React.Fragment>
+    
+        Multiple Components in Applications
