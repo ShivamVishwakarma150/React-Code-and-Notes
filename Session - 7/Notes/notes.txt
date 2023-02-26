@@ -103,6 +103,47 @@ export function NetflixRegisterComponent()
     );
 }
 
+NetflixFooterComponent.js 
+--------------------------
+export default function NetflixFooterComponent()
+{
+    return(
+        <>
+            Questions? Call 000-800-919-1694
+            <div className="row">
+                <div className="col">
+                        <ul className="list-unstyled">
+                            <li>FAQHelp</li>
+                            <li>Investor Relations</li>
+                            <li>Privacy</li>
+                        </ul>
+                </div>
+                <div className="col">
+                        <ul className="list-unstyled">
+                            <li>Help Centre</li>
+                            <li>Jobs</li>
+                            <li>Cookie Preferences</li>
+                        </ul>
+                </div>
+                <div className="col">
+                         <ul className="list-unstyled">
+                            <li>Help Centre</li>
+                            <li>Jobs</li>
+                            <li>Cookie Preferences</li>
+                        </ul>
+                </div>
+                <div className="col">
+                     <ul className="list-unstyled">
+                            <li>Help Centre</li>
+                            <li>Jobs</li>
+                            <li>Cookie Preferences</li>
+                        </ul>
+                </div>
+            </div>
+        </>
+    )
+};
+
 NetflixIndexComponent.css 
 --------------------------
 
@@ -121,3 +162,13 @@ NetflixIndexComponent.css
 section{
     height: 300px;
 }
+
+Ex: Arrow Technique | Callback
+--------------------------------
+
+const LoginComponent = ()=>(
+    <div>
+        <h2>User Login</h2>
+    </div>
+)
+export default LoginComponent;
