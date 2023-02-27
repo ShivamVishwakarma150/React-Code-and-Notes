@@ -1,0 +1,144 @@
+Function Component
+Class Component
+
+React Class Component
+----------------------
+
+- Technically class is Program Template.
+- Class have various behaviors
+    a) Blue Print
+    b) Model
+    c) Entity
+
+- Program Template provides a set of values and methods which you can implement and customize according to requirements.
+
+
+- Class is defined as Entity when it is mapping to business requirements.
+
+- Class is defined as Models when it is mapping data requirements.
+
+- Javascript class comprises of
+    a) Constructor
+    b) Properties
+    c) Accessors
+    d) Methods 
+
+- Constructor is used for Instantiation.
+- Property store the data
+- Accessor gives a fine grained control over Property.
+    [ It can configure restriction of reading and assigning value ]
+- Method defines the actions to perform.
+
+FAQ: Can we declare a variable in Class;
+Ans: No
+
+FAQ: Why we can't declare variables in class;
+Ans: Variable is immutable and class can't contain immutable members.
+
+FAQ: How data is stored in class?
+Ans: By using Property.
+
+
+FAQ: Can we define a Function in class ?
+Ans : No. You can have only methods.
+
+Note: you can define a variable and functions in methods.
+
+Ex:
+
+var username = prompt("Enter Name");
+var designation = prompt("Enter Designation");
+var productName = prompt("Enter Product Name " );
+class Product
+{
+    _productName;// It is naming convention 
+    get ProductName(){
+        return this._productName;
+    }
+    set ProductName(newName){
+        if(designation=="admin"){
+            this._productName=newName;
+        }else{
+            document.write(`Unauthorized : Hello ${username} you not authorized to set username`);
+        }
+    }
+}
+let obj = new Product();
+obj._productName=productName; // before assigning into it anything it first verified with setter Accessor.
+if(obj.ProductName){
+    document.write("Product Name : "+ obj.ProductName);//getter
+}
+ 
+
+Ex:2
+
+class Register
+{
+    Name = "Samsung TV";
+    Rating={
+        Rate:{
+            count : 3000,
+            value : 4.5
+        }
+    }
+    get RateValue(){
+        return this.Rating.Rate.Value;
+    }
+}
+
+let obj = new Register();
+document.write("Rate value : "+obj.RateValue);
+
+
+
+Constructor
+- Every Derived class Constructor must have a super call.
+
+Ex:
+
+class BaseClass
+{
+    constructor(){
+        document.write("Base class Constructor<br>");
+    }
+}
+class DerivedClass extends BaseClass
+{
+    constructor(){
+        super();// Here we have to call it explicitly
+        document.write("Derived class constructor");
+    }
+}
+let obj = new DerivedClass();
+
+
+- React class component extends "React.Component" base.
+
+class Home extends React.Component
+{
+
+}
+
+- It is a member of "React" core library.
+
+React : Namespace
+Component : Class 
+
+namespace React
+{
+    class Component{}
+}
+
+React.Component
+
+- A class component must render markup by using "render()" method.
+
+What are the drawback of OOP?
+- it will not support low level features.
+- it can't directly interact with Hardware services
+- It uses more memory
+- Is is slow
+- It is complex in configurations.
+- Heavy on application
+
+What is Difference between React Function and Class Component Earlier?
