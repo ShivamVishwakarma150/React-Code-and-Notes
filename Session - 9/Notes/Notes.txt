@@ -1,0 +1,85 @@
+FAQ: What are the Difference between and function and Class Component ?
+
+Class Component
+- it represent a JavaScript Class.
+- It is good for extensibility.
+- Component class comprises state
+- It is known as Stateful Component.
+- Life Cycle is configured for Component.
+- It handles various phases from initialization to destroy.
+
+
+- function Component
+- It represents a JavaScript function.
+- It is not great in extensibility
+- It uses less memory
+- it is faster
+- It is stateless [ from 17+ versions you can use state]
+- Explicitly use state
+- No life Cycle methods implicitly [ Explicitly you can configure ]
+
+FAQ : Which Component you will design as class?
+Ans: The Components that need regular extentions .
+
+
+
+
+Data Binding
+------------
+- Data Binding is technique that defines how data is binded to UI [View]
+- JavaScript and JQuery uses lot of DOM methods for Data Binding
+    getElementById()
+    getQuerySelector()
+    appendChild()
+    createElement()
+
+Data Binding in JS 
+Eg:-
+
+<!-- Data Binding in JS -->
+<head>
+    <script>
+        var categories = ["All","Electronics","Footwear"];
+        function bodyload(){
+            categories.forEach(element => {
+                var  li = document.createElement("li");
+                li.innerHTML = element;
+                document.querySelector("ol").appendChild(li);
+            });
+        }
+    </script>
+</head>
+<body onload="bodyload()">
+    <ol>
+
+    </ol>
+</body>
+
+Data Binding in JQuery
+Eg:-
+<!-- Data Binding in JQuery -->
+<head>
+    <script src="./node_modules/jquery/dist/jquery.js"></script>
+    <script>
+        var categories = ["All","Electronics","Footwear"];
+       $(function(){
+        $.each(categories,function(key,value){
+            $(`<li>${value}</li>`).appendTo("ol");
+        })
+       })
+    </script>
+</head>
+<body >
+    <ol>
+
+    </ol>
+</body>
+
+- React can handle data binding by using binding expression and simple collection methods
+- React Data Binding Expression
+    "{}"
+
+- you can bind to a property or you can bind as literal
+<div>{literal}</div> // bind to a literal
+<img src={product.image}> // bind to a property
+<input type="text" value={product.Name}/>
