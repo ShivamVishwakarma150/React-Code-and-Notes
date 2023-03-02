@@ -83,3 +83,137 @@ Eg:-
 <div>{literal}</div> // bind to a literal
 <img src={product.image}> // bind to a property
 <input type="text" value={product.Name}/>
+
+Ex:
+export default function DataBindingComponent(){
+    var product = {
+        Name : "Samsung Tv",
+        price : 4500.45,
+        stock : true
+    }
+    return (
+        <div className="container">
+             <h2>Product Details</h2>
+             <dl>
+                <dt>Name</dt>
+                <dd>{product.Name}</dd>
+                <dt>Price</dt>
+                <dd>{product.price}</dd>
+                <dt>Stock</dt>
+                <dd>{product.stock ? "Available" : "Not Available "}</dd>
+             </dl>
+        </div>
+    )
+}
+
+- You can't bind any dynamic value to attribute.
+<input type="text" size="4" required>
+size => Attribute  | Property
+class => Attribute | X
+className -> property
+
+
+<div class={}> //invalid
+<div className={}>
+
+<table height={}> // invalid - table don't have height as property.
+
+// for finding properties of any element 
+var ele = document.createElement("img"); // Here we take element as img.
+for(var property in ele){
+    document.write(property+"<br>");
+}
+
+
+
+- Binding a collection
+        .map()
+        .filter()
+        .find()
+        .toString()
+        .join()
+        .slice()
+
+
+export default function DataBindingComponent(){
+    var categories = ["All","Electronics","Footwear"];
+    return(
+        <div className="container">
+            <h2>Categories</h2>
+            <ol>
+                {
+                    categories.toString();
+                }
+            </ol>
+        </div>
+    )
+}
+o/p :- All,Electronics,Footwear
+
+Eg:2
+export default function DataBindingComponent(){
+    var categories = ["All","Electronics","Footwear"];
+    return(
+        <div className="container">
+            <h2>Categories</h2>
+            <ol>
+                {
+                    categories.map(function(category){
+                        return(
+                            <li>{category></li>
+                        )
+                    })
+                }
+            </ol>
+            <h2>Select Category</h2>
+            <select>
+                {
+                    categories.map(category=>
+                        <option value={category}>{category}</option>
+                    )
+                }
+            </select>
+        </div>
+    )
+}
+
+O/p
+1. All 
+2. Electronics
+3. Footwear
+select 
+
+
+- In React Iterations every iterating item must have a unique key.
+Eg:2
+export default function DataBindingComponent(){
+    var categories = ["All","Electronics","Footwear"];
+    return(
+        <div className="container">
+            <h2>Categories</h2>
+            <ol>
+                {
+                    categories.map(function(category){
+                        return(
+                            <li key={category}>{category></li>
+                        )
+                    })
+                }
+            </ol>
+            <h2>Select Category</h2>
+            <select>
+                {
+                    categories.map(category=>
+                        <option key={category} value={category}>{category}</option>
+                    )
+                }
+            </select>
+        </div>
+    )
+}
+
+O/p
+1. All 
+2. Electronics
+3. Footwear
+select 
