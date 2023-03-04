@@ -56,6 +56,7 @@ Eg:-
 </body>
 
 Data Binding in JQuery
+----------------
 Eg:-
 <!-- Data Binding in JQuery -->
 <head>
