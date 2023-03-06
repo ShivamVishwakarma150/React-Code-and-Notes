@@ -1,0 +1,25 @@
+import React from "react";
+import ReactDOM from "react-dom/client";
+
+import './node_modules/bootstrap/dist/css/bootstrap.css';
+import './node_modules/bootstrap-icons/font/bootstrap-icons.css';
+
+import DataBindingComponent from "./src/components/DataBindingComponent";
+import ShoppingComponent from "./src/components/ShoppingComponent";
+import TwoWayBinding from "./src/components/TwoWayBinding";
+
+import OneWayClassDemo from "./src/components/OneWayClassDemo";
+import TwoWayClassDemo from "./src/components/TwoWayClassDemo";
+
+
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+
+// Passing a react element inside the root
+root.render(
+       <>
+       
+       <TwoWayClassDemo/>   
+       </>
+       
+);

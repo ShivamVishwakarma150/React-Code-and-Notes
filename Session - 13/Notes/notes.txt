@@ -1,0 +1,120 @@
+                State and Event Binding in Class Component
+
+- Class Component is a JavaScript class that extends "React.Component"
+
+- Class component is configured with implicit state, which is defined in "React.Component" base.
+
+- State in react class component is configure at the time creating object for component. [Constructor]
+
+- In Class component state is defined in constructor.
+
+- State in class component is an JavaScript object with key and value collection.
+
+            constructor(props)
+            {
+                super(props);
+                this.state = {
+                     key : value|number|string|boolean|array|object etc..
+                 }
+            }
+
+
+Ex: One Way Binding
+
+import React from "react";
+
+export default class TwoWayClassDemo extends React.Component
+{
+    constructor(props){
+        super(props)
+        this.state = {
+            title: 'Product Details',
+            Name: 'Samsung TV',
+            Price: 56000.44,
+            Stock: true,
+            Cities: ['Delhi', 'Hyd'],
+            Rating: {rate:4.5, count:6700}
+        }
+    }
+    render(){
+        return(
+            <div className="container-fluid">
+                <h2>{this.state.title}</h2>
+                <dl>
+                    <dt>Name</dt>
+                    <dd>{this.state.Name}</dd>
+                    <dt>Price</dt>
+                    <dd>{this.state.Price}</dd>
+                    <dt>Stock</dt>
+                    <dd>{(this.state.Stock==true)?"Available":"Out of Stock"}</dd>
+                    <dt>Cities</dt>
+                    <dd>
+                        <ol>
+                            {
+                                this.state.Cities.map(city=>
+                                     <li key={city}>{city}</li>
+                                    )
+                            }
+                        </ol>
+                    </dd>
+                    <dt>Rating</dt>
+                    <dd>
+                        <span className="bi bi-star-fill text-success"></span> {this.state.Rating.rate} [{this.state.Rating.count}]
+                    </dd>
+                </dl>
+            </div>
+        )
+    }
+}
+
+- To read the value configure in state of class component your have to refer the key.
+
+            { this.state.key }
+
+- To set the value into state you have to use the method
+
+            this.setState()
+
+- You can't set state at any specified event in DOM, as state is configured at instantiation of component and event is defined after instantiation.
+
+Note: If your event is trying to use state then your event must bind with state.
+
+            constructor()
+            {
+                 this.handleChange = this.handleChange.bind(this);
+            }
+                    (or)
+
+        <input type="text"  onChange={this.handleChange.bind(this)}>
+
+
+Ex:
+import React from "react";
+
+export default class TwoWayClassDemo extends React.Component
+{
+    constructor(props){
+        super(props)
+        this.state = {
+            UserName: 'John'
+        }
+      //  this.handleUserChange = this.handleUserChange.bind(this);
+    }
+
+    handleUserChange(e){
+        this.setState({
+            UserName: e.target.value
+        })
+    }
+
+    render(){
+        return(
+            <div className="container-fluid">
+               <h2>User Details</h2>
+               <input type="text" onChange={this.handleUserChange.bind(this)} />
+               <br/>
+               <p>Hello ! {this.state.UserName}</p>
+            </div>
+        )
+    }
+}
