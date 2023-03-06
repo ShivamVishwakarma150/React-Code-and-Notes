@@ -1,0 +1,325 @@
+React Component Properties
+
+Ex: API with class component
+
+import React from "react";
+
+export default class ShoppingClassDemo extends React.Component
+{
+    constructor(props){
+        super(props);
+        this.state = {
+            categories: [],
+            products: []
+        }
+        this.handleCategoryChange = this.handleCategoryChange.bind(this);
+    }
+
+    GetCategories(){
+        fetch('http://fakestoreapi.com/products/categories&#39;)
+        .then(response=>response.json())
+        .then(data=>{
+            this.setState({
+                categories: data
+            })
+        })
+    }
+    GetProducts(url){
+        fetch(url)
+        .then(response=>response.json())
+        .then(data=>{
+            this.setState({
+                products: data
+            })
+        })
+    }
+
+    componentDidMount(){
+        this.GetCategories();
+        this.GetProducts('http://fakestoreapi.com/products&#39;);
+    }
+
+    handleCategoryChange(e){
+        this.GetProducts(`http://fakestoreapi.com/products/category/${e.target.value}`);
+    }
+
+    render(){
+        return(
+            <div className="container-fluid">
+              <header className="bg-danger p-2 text-white text-center">
+                <h2><span className="bi bi-cart"></span> Shopping Cart</h2>
+              </header>
+              <section className="row">
+                <nav className="col-3">
+                    <h2>Select Category</h2>
+                    <select onChange={this.handleCategoryChange} className="form-select">
+                        {
+                            this.state.categories.map(category=>
+                                <option key={category}>{category}</option>
+                                )
+                        }
+                    </select>
+                </nav>
+                <main className="col-9">
+                    <div className="d-flex flex-wrap">
+                        {
+                            this.state.products.map(product=>
+                                <div key={product.id} className="card m-2 p-2" style={{width:'200px'}}>
+                                    <img  src={product.image} className="card-img-top" height="150" />
+                                    <div className="card-header" style={{height:'160px'}}>
+                                        <p>{product.title}</p>
+                                    </div>
+                                </div>
+                                )
+                        }
+                    </div>
+                </main>
+              </section>
+            </div>
+        )
+    }
+}
+
+                             React Component Properties
+                            ----------------------------
+- Component is template.
+- Markup, styles, functionality.
+- We can reuse any component.
+- We have to reuse the same component with different data.
+- Properties allows to pass data dynamically into any component.
+- Properties are same in both
+        a) Function Component
+        b) Class Component
+
+Syntax:
+    export function Card(props)
+    {
+            return(
+                <markup>{props}</markup>
+            )
+    }
+
+    <Card  props={value}> </Card>
+
+   props = {
+         key:value;
+    }
+
+   props = {
+        product: product;
+   }
+
+Ex:  Function Component
+
+CardComponent.js
+
+
+export function CardComponent(props)
+{
+    return(
+        <div className="card m-2 p-2" style={{width:'200px'}}>
+             <img src={props.product.image} className="card-img-top" height="160" />
+             <div className="card-header" style={{height:'160px'}}>
+                <p>{props.product.title}</p>
+             </div>
+        </div>
+    )
+}
+
+
+ShoppingComponent.js
+
+import React from "react";
+import { CardComponent } from "./CardComponent";
+
+export default class ShoppingClassDemo extends React.Component
+{
+    constructor(props){
+        super(props);
+        this.state = {
+            categories: [],
+            products: []
+        }
+        this.handleCategoryChange = this.handleCategoryChange.bind(this);
+    }
+
+    GetCategories(){
+        fetch('http://fakestoreapi.com/products/categories&#39;)
+        .then(response=>response.json())
+        .then(data=>{
+            this.setState({
+                categories: data
+            })
+        })
+    }
+    GetProducts(url){
+        fetch(url)
+        .then(response=>response.json())
+        .then(data=>{
+            this.setState({
+                products: data
+            })
+        })
+    }
+
+    componentDidMount(){
+        this.GetCategories();
+        this.GetProducts('http://fakestoreapi.com/products&#39;);
+    }
+
+    handleCategoryChange(e){
+        this.GetProducts(`http://fakestoreapi.com/products/category/${e.target.value}`);
+    }
+
+    render(){
+        return(
+            <div className="container-fluid">
+              <header className="bg-danger p-2 text-white text-center">
+                <h2><span className="bi bi-cart"></span> Shopping Cart</h2>
+              </header>
+              <section className="row">
+                <nav className="col-3">
+                    <h2>Select Category</h2>
+                    <select onChange={this.handleCategoryChange} className="form-select">
+                        {
+                            this.state.categories.map(category=>
+                                <option key={category}>{category}</option>
+                                )
+                        }
+                    </select>
+                </nav>
+                <main className="col-9">
+                    <div className="d-flex flex-wrap">
+                        {
+                            this.state.products.map(product=>
+                                 <CardComponent key={product.id} product={product} />
+                                )
+                        }
+                    </div>
+                </main>
+              </section>
+            </div>
+        )
+    }
+}
+
+
+Ex: Class Component
+
+import React from "react";
+
+export default class CardComponent extends React.Component
+{
+    constructor(props){
+        super(props);
+    }
+    render(){
+        return(
+            <div className="card m-2 p-2" style={{width:'200px'}}>
+             <img src={this.props.product.image} className="card-img-top" height="160" />
+             <div className="card-header" style={{height:'160px'}}>
+                <p>{this.props.product.title}</p>
+             </div>
+          </div>
+        )
+    }
+}
+
+                                Data Binding
+                                Style Binding
+                                Class Binding
+                                Event Binding
+
+<div  style="width:200px"> // normal html
+<div  style={{width:'200px'}}>            // Virtual DOM
+
+- React Style Binding allows to change the styles dynamically.
+- React Class binding allows to change the class dynamically.
+- JavaScript uses "style" property
+
+        element.style.backgroundColor = 'red'; // in JS
+           
+            <div style={{ }}> // in React
+
+                           
+Ex:
+import { useState } from "react"
+
+
+export default function LoginComponent()
+{
+    const [theme, setTheme] = useState({});
+
+    function handleThemeChange(e){
+        if(e.target.checked) {
+            setTheme({
+                backgroundColor: 'black',
+                color:'white',
+                width: '250px',
+                padding:'10px'
+            })
+        } else {
+            setTheme({
+                backgroundColor: 'white',
+                color:'black',
+                width: '250px',
+                padding:'10px'
+            })
+        }
+    }
+
+    return(
+        <div className="container-fluid">
+            <div style={theme}>
+            <h2>User Login</h2>
+            <div className="form-switch">
+                <input onChange={handleThemeChange} className="form-check-input" type="checkbox"/> Dark Theme
+            </div>
+            <dl>
+                <dt>User Name</dt>
+                <dd><input type="text" /></dd>
+                <dt>Password</dt>
+                <dd><input type="password"/></dd>
+            </dl>
+            <button>Login</button>
+            </div>
+        </div>
+    )
+}
+
+Ex:
+import { useState } from "react"
+
+
+export default function LoginComponent()
+{
+    const [theme, setTheme] = useState('');
+
+    function handleThemeChange(e){
+        if(e.target.checked) {
+            setTheme('bg-dark text-white p-2 w-50')
+        } else {
+            setTheme('bg-light text-dark p-2 w-50')
+        }
+    }
+
+    return(
+        <div className="container-fluid">
+            <div className={theme}>
+            <h2>User Login</h2>
+            <div className="form-switch">
+                <input onChange={handleThemeChange} className="form-check-input" type="checkbox"/> Dark Theme
+            </div>
+            <dl>
+                <dt>User Name</dt>
+                <dd><input type="text" /></dd>
+                <dt>Password</dt>
+                <dd><input type="password"/></dd>
+            </dl>
+            <button>Login</button>
+            </div>
+        </div>
+    )
+}
+
+                                3rd Party Forms we make these things simplified
