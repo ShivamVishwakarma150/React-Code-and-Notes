@@ -32,7 +32,7 @@ export default function ShoppingComponent() {
   useEffect(() => {
     LoadCategories();
     LoadProducts("http://fakestoreapi.com/products");
-  }, []);
+  }, [cartItems.length]);
 
   function handleCategoryChange(e) {
     if (e.target.value == "all") {
@@ -58,10 +58,10 @@ export default function ShoppingComponent() {
 
   let deleteItem = (e) => {
     let id = e.target.id;
-    console.log(`${id} got deleted `);
-    for (let i = 0; i <= cartItems.length; i++) {
-      console.log(cartItems[i].id);
-    }
+    console.log("want to delete "+id);
+    let arr = cartItems.filter(obj=>obj.id!=id);
+    console.log(arr);
+    setCartItems(arr);
   };
 
   function handleSelectAllFromCart() {
@@ -171,6 +171,7 @@ export default function ShoppingComponent() {
                     <img src={item.image} width="50" height="50" />
                   </td>
                   <td>
+                    {item.id}
                     <button
                       id={item.id}
                       onClick={deleteItem}
