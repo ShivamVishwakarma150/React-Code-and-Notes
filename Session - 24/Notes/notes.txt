@@ -1,0 +1,118 @@
+useReducer
+===========
+- Reducer is used to define a predictable state container for component.
+- It can store data and make it available across requests.
+- Context is similar to reducer but it is not safe.
+- Context stores the data and structure.
+- Reducer hides the structure and provides data.
+- It is safe when compared to context.
+- React 16+ version provides "userReducer" hook to maintain predictable state for component.
+- React "useReducer" comprises of 2 components
+        a) reducer
+        b) dispatcher
+
+Reducer:
+- It defines the actions to perform
+- It defines the data to store
+
+Syntax:
+    function reducer(state, action)
+    {
+           switch(action.type)
+           {
+                 case A: {
+                   return state;
+                }
+                case B: {
+                   return state;
+                }
+           }
+    }
+
+- Reducer predicts the action type and returns relative data.
+- It makes the data available across requests.
+
+Dispatcher:
+- It follows "observer" pattern.
+- It is a communication pattern.
+- It will dispatch the action type and notifies the reducer.
+
+<button  onClick={()=> {type:'A'} }>
+<button  onClick={()=> {type:'B'} }>
+
+Summary:
+- reducer defines actions and stores data.
+- dispatcher configures observer pattern that will dispatch specified action.
+- reducer manages state container at application level.
+
+Step-1: Configure Initial State
+
+        var initialState  = { count: 0 };
+
+Step-2: Configure Reducer
+
+ function reducer(state, action)
+ {
+        switch(action.type)
+        {
+                case 'type1':                
+                    return  state;                
+                case 'type2:
+                    return state;
+                default:
+                    return otherValue;
+        }
+ }
+
+Step-3: Configure useReducer hook for component that will manage the state and actions
+
+           const [state, dispatch] = useReducer(initialState,action)
+
+            <button onClick={()=> dispatch({type:'Like'})}>
+            <button onClick={()=> dispatch({type:'dislike'})}>
+
+Step-4: You can access the state and return data
+   
+            {state.count}
+
+
+FAQ: What is difference between  return  and break?
+Ans:  break terminates the block but still continues execution.
+         return terminates execution.
+
+Ex:
+import { useReducer, useState  } from "react";
+
+var initialState = {count: 0};
+
+function reducer(state, action){
+    switch(action.type)
+    {
+        case 'like':
+        return {count: state.count + 1};
+        case 'dislike':
+        return {count: state.count - 1};
+    }
+}
+
+export default function ReducerDemo(){
+   
+    const [state, disptach] = useReducer(reducer, initialState);
+
+    function handleLikeClick(){
+        disptach({type:'like'});
+    }
+    function handleDislikeClick(){
+        disptach({
+            type:'dislike'
+        })
+    }
+
+    return(
+        <div className="container-fluid">
+            <h2>Likes Counter - {state.count}</h2>
+            <button onClick={handleLikeClick} >Like</button>
+            <button onClick={handleDislikeClick}>Dislike</button>
+        </div>
+    )
+}
