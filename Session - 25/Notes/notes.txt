@@ -1,0 +1,227 @@
+Custom Hooks
+=============
+
+- reducer         : defines actions
+- dispatch        : notifies changes to actions
+
+1. configure initial state
+2. define reducer
+3. dispatch
+
+Ex: useReducer
+
+import { useEffect, useReducer, useState  } from "react";
+
+var initialState = {likes: 0, dislikes: 0};
+
+function reducer(state, action){
+    switch(action.type)
+    {
+        case 'like':
+        return {likes: parseInt(state.likes) + 1, dislikes: state.dislikes};
+        case 'dislike':
+        return {dislikes: parseInt(state.dislikes) + 1, likes: state.likes};
+    }
+}
+
+export default function ReducerDemo(){
+   
+
+    const [state, disptach] = useReducer(reducer, initialState);
+    const [product, setProduct] = useState({});
+
+    useEffect(()=>{
+        fetch("http://fakestoreapi.com/products/2&quot;)
+        .then(response=>response.json())
+        .then(data=>{
+           
+            setProduct(data);
+        })
+    },[])
+
+
+    function handleLikeClick(){
+        disptach({type:'like'});
+    }
+    function handleDislikeClick(){
+        disptach({
+            type:'dislike'
+        })
+    }
+
+    return(
+        <div className="container-fluid">
+            <h2>Product Details</h2>
+            <div className="card p-2" style={{width:'300px'}}>
+                <img src={product.image} className="card-img-top" height="160"/>
+                <div className="card-header">
+                    <p>{product.title}</p>
+                </div>
+                <div className="card-footer">
+                [{state.likes}] <button className="btn btn-primary" onClick={handleLikeClick} > <span className="bi bi-hand-thumbs-up"></span> </button>
+                [{state.dislikes}] <button className="btn btn-danger" onClick={handleDislikeClick}> <span className="bi bi-hand-thumbs-down"></span> </button>
+                </div>
+            </div>
+           
+        </div>
+    )
+}
+
+                               Custom Hooks
+- Creating a custom Hook is creating a new service.
+- Service is a pre-define business logic which you can implement and customize according to your requirements.
+
+Basic Rules
+- Custom hook must be a function.
+- It must return a value
+- hook can't be void type.
+- Make sure that function handles exception.
+- It returns exception.
+
+Ex:
+1. Create a new folder "hooks"
+2. Add a new file
+        "useFetchData.js"
+
+import { useState, useEffect } from "react";
+
+export function useFetchData(url)
+{
+    const [data, setData] = useState();
+
+    useEffect(()=>{
+        fetch(url)
+        .then(response=>response.json())
+        .then(data=> {
+            setData(data);
+        })
+        .catch((ex)=>{console.error(ex)});
+    },[url])
+    return {data}
+}
+
+3. Import hook into any component
+
+import { useFetchData } from "../hooks/useFetchData"
+
+export default function CustomHookDemo()
+{
+    const [data] = useFetchData("http://fakestoreapi.com/products&quot;);
+
+    return(
+        <div className="container-fluid">
+            <h2>Products</h2>
+            <ol>
+                {
+                    data.data.map(product=>
+                        <li>{product.title}</li>
+                        )
+                }
+            </ol>
+        </div>
+    )
+}
+
+
+
+Ex: Captcha
+
+useCaptcha.js
+
+
+import { useState, useEffect } from "react";
+
+export function useCaptcha(){
+    var [code, setCode] = useState(0);
+    useEffect(()=>{
+         var a = Math.random() * 10;
+         var b = Math.random() * 10;
+         var c = Math.random() * 10;
+         var d = Math.random() * 10;
+         var e = Math.random() * 10;
+         var f = Math.random() * 10;
+         setCode(`${Math.round(a)} ${Math.round(b)} ${Math.round(c)} ${Math.round(d)} ${Math.round(e)} ${Math.round(f)}`)
+    },[])
+    return {code};
+}
+
+UserLogin.js
+
+import { useState, useEffect } from "react";
+import { useCookies } from "react-cookie";
+import { useCaptcha } from "../hooks/useCaptcha";
+
+
+
+export default function UserLogin(){
+    const [cookies, setCookie, removeCookie] = useCookies(['username']);
+    const [userDetails, setUserDetails] = useState({UserName:'', Password:''});
+   
+    const code = useCaptcha();
+
+    function handleUserName(e){
+        setUserDetails({
+            UserName: e.target.value,
+            Password: userDetails.Password
+        })
+    }
+    function handlePassword(e){
+        setUserDetails({
+            UserName: userDetails.UserName,
+            Password: e.target.value
+        })
+    }
+    function handleLogin(){
+        setCookie("username",userDetails.UserName,{path:"/", expires:new Date("2022-07-02")});
+        alert("Login Success..");
+    }
+    function handleSignout(){
+        removeCookie("username");
+        alert("Signed out Successfully..");
+    }
+    useEffect(()=>{
+        if(cookies.username==undefined) {
+            alert("Please Login");
+           
+        }
+    },[]);
+
+    function handleCode(){
+       
+    }
+
+    return(
+        <div className="container-fluid">
+            <h2>User Login</h2>
+            <dl>
+                <dt>User Name</dt>
+                <dd><input onChange={handleUserName} type="text"/></dd>
+                <dt>Password</dt>
+                <dd><input onChange={handlePassword} type="password"/></dd>
+                <dt>Verify Code <button>New Code</button> </dt>
+                <dd>{code.code}</dd>
+            </dl>
+            <button onClick={handleLogin}>Login</button>
+            <hr/>
+            <div>
+            <h3>Home  <button onClick={handleSignout} className="btn btn-link">Signout</button> </h3>
+            Hello ! {cookies.username}
+            </div>
+        </div>
+    )
+}
+
+Ex: Create a Custom Hook for sorting data
+
+
+ ["A", "D", "C", "E", "B"]
+
+    useSort(data)
+
+Ex: Create a Hook for to convert text into Sentence case.
+
+        wElcOME to HtML => Weclome to html
+
+
+                             Ajax Call for API
+                            Routing
