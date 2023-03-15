@@ -1,0 +1,159 @@
+Working with API's in React
+============================
+
+What is the role of React Developer?
+Building effective User Interfaces
+
+What are responsibilities?
+- Designing Reusable Components
+- Designing Services
+- Consuming Services
+- Communication with API
+- Form Validations
+- Configuring Forms for various Modules
+- Implementing Routing
+- Handling Security Issues in Application
+        Cross Site Scripting Attacks [XSS]
+        Request Forgery
+        Injection Attacks
+        CORS
+
+                                     API's
+
+1. What is Distributed Computing Architecture?
+- Two applications running or 2 different mechines can share information.
+- Two applications running or same mechine in 2 different process can share information.
+
+2. What are the popular distributed computing technologies?
+- CORBA
+- DCOM
+- RMI
+- EJB
+- Web Services
+- Remoting
+
+3. Communication Specifications
+- SOAP
+- REST
+- JSON
+
+4. API uses distributed computing architecture
+    API comprises of
+        a) Service Consumer
+        b) Service Provider
+    API communication is managed in 3 ways
+        SOAP
+        REST
+        JSON
+
+SOAP
+- Service Oriented Architecture Protocol
+- Consumer will make an XML request
+- Provider will send an XML response
+
+Ex:
+    Request:
+        <Product>
+                <Id>2</Id>
+        </Product>
+
+    Response:
+        <Product>
+           <Id>2</Id>
+           <Name>TV</Name>
+           <Price> 45000 </Price>
+        </Product>
+
+REST[full]
+- Representational State Transfer
+- Consumer will make Query request
+- Provider will respond with XML and optionally JSON.
+
+Request:
+      http://fakestoreapi.com/products?id=2
+
+Response
+        <Product>
+           <Id>2</Id>
+           <Name>TV</Name>
+           <Price> 45000 </Price>
+        </Product>
+
+JSON:
+- JavaScript Object Notation
+- Consumer make JSON request
+- Provider will response with JSON
+
+Request:
+    {
+     "Id" : 2
+    }
+
+Response
+    {
+     "Id":2,
+    "Name":"TV",
+    "Price":45000
+    }
+
+Design End Point
+- Provider
+        MongoDB         Database
+        Node.js            Server
+        Express            API
+       
+- Consumer
+        React                 UI
+        - fetch()
+        - $.ajax()
+        - axios
+        - whatwg-fetch
+
+
+                                 MongoDB Database
+                                -----------------------------
+1. Download and Install MongoDB Database Server on your PC
+
+    https://www.mongodb.com/try/download/community
+
+Note: Make sure that you selected "MongoDB Compass", which is
+        a GUI tool for working with database.
+
+2. Open MongoDB Compass
+
+3. Connect with MongoDB Server using
+
+        "mongodb://127.0.0.1:27017"
+
+     Oracle, MySql                    MongoDB
+     Database                        Database
+     Table                            Collection
+     Records                            Documents
+     Fields                            Fields
+     Joins                                Embedded Documents
+                                        [JSON]
+
+4. Create a new Database
+
+        database name        : reactdb
+        collection name        : tblusers
+
+5. Insert document into table [collection] => Add Data => Insert Document
+
+{
+  "UserId":"shivam150",
+  "UserName": "Shivam",
+  "Password": "Shivam@234",
+  "Age":22,
+  "Mobile": "+91923832422",
+  "Subscribed":true  
+}
+
+                            Server Side API
+                        [Node.js and Express]
+
+GET            /getusers                    
+GET            /getusers/userid
+POST           /registeruser
+
+    http://localhost:port/getusers
