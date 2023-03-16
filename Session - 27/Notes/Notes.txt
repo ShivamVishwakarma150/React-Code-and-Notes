@@ -1,0 +1,134 @@
+Creating API
+=============
+
+- Distributed Computing
+- Technologies
+- Web Service and Web API
+- SOAP, REST, JSON
+- Database in MongoDB
+
+
+                            MongoDB Queries
+1. Reading
+    find({query})
+   
+Syntax:
+    db.collection.find({})
+    select * from tbl
+
+    db.collection.find({id:1})
+
+    {$gt: { }}            greater than
+    {$lt : { }}            less than
+    {$gte: { }}
+    {$lte: { }}
+    {$ne: { }}
+
+2. Inserting
+    insertOne()
+    insertMany()
+
+Syntax
+    db.collection.insertOne({field:value,..})
+    db.collection.insertMany([{},{}])
+
+3. Update
+    updateOne()
+    updateMany()
+   
+Syntax:
+    db.collection.updateOne({findQuery},{update Query});
+
+    $set
+    $rename
+    $unset
+
+    db.collection.updateOne({id:2},{$set:{price:400}});
+
+4. Delete
+    deleteOne()
+    deleteMany()
+
+Syntax:
+    db.collection.deleteOne({findQuery});
+    db.collection.deleteOne({id:2});
+
+
+                            Design Server Side API
+- Node.js
+- Express
+
+1. To configure API requests server side you need following libraries
+
+    >npm install express        [ middleware framework ]
+    >npm install mongodb        [ database drivers ]
+    >npm install cors           [ cross origin resource sharing]
+
+Note: Nodejs server side programs are written in JavaScript file
+                            program.js
+         Node js program are compile by using V8(Chrome) compiler
+               
+                            >node program.js
+
+2. Create a new Nodejs program
+                    "api.js"
+
+var express = require("express");
+var cors = require("cors");
+var mongoClient = require("mongodb").MongoClient;
+
+var connectionString = "mongodb://127.0.0.1:27017";
+
+var app = express();
+app.use(cors());
+app.use(express.urlencoded({
+    extended:true
+}));
+app.use(express.json());
+
+app.get("/getusers", (req, res)=>{
+    mongoClient.connect(connectionString,(err, clientObj)=>{
+        if(!err){
+            var database = clientObj.db("reactdb");
+            database.collection("tblusers").find({}).toArray((err, documents)=>{
+                if(!err) {
+                    res.send(documents);
+                }
+            })
+        }
+    })
+});
+
+app.post("/registeruser",(req, res)=>{
+    var userdetails = {
+        UserId: req.body.UserId,
+        UserName: req.body.UserName,
+        Password: req.body.Password,
+        Age: parseInt(req.body.Age),
+        Mobile: req.body.Mobile,
+        Subscribed:(req.body.Subscribed=="true")?true:false
+    }
+    mongoClient.connect(connectionString,(err, clientObj)=>{
+        if(!err){
+            var database = clientObj.db("reactdb");
+            database.collection("tblusers").insertOne(userdetails,(err, result)=>{
+                if(!err){
+                    console.log("Record Inserted");
+                    res.redirect("/getusers");
+                }
+            })
+        }
+    })
+})
+
+app.listen(4000);
+console.log("Server Started : http://127.0.0.1:4000&quot;);
+
+
+> node api.js
+
+   http://localhost:4000/getusers        GET
+   http://localhost:4000/registeruser    POST
+
+
+                            Client Side React
