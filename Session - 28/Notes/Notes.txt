@@ -1,0 +1,180 @@
+React End to End Application
+============================
+
+
+                         React API Requests
+
+FAQ: Which object manages Ajax requests in JavaScript based applications?
+Ans:  XmlHttpRequest  object
+
+- React can use JavaScript HttpRequest methods and promise
+    "fetch()"
+- Fetch
+    * It returns data in binary format
+    * Response is in binary, which is converted into JSON.
+    * It need explicit XMLHttpRequest object to monitor the errors.
+
+- React can use various 3rd party libraries to interact with API
+    a) jQuery Ajax
+    b) Axios
+    c) Whatwg-Fetch etc..
+
+
+                         jQuery Ajax with React
+
+- JQuery Ajax returns data in JSON
+- Advanced error handling methods
+- Handle all requests like GET, POST, PUT, DELETE etc..
+- CORS issues
+- Injection issues
+- XSS
+- Request Forgery
+ 
+API Requests
+GET            http://localhost:4000/getusers
+POST           http://localhost:4000/registeruser
+
+1. Install jQuery library for React project
+
+        >npm install jquery --save
+
+2. Import jQuery library into component
+
+        import   $  from  'jquery';
+
+3. Access jQuery Ajax methods
+
+        $.ajax({ajaxOptions})
+
+        method        : request method GET / POST
+        url                : API url
+        success        : Callback function on success
+        error            : Callback function on error
+
+Syntax:
+        $.ajax({
+            method: "GET | POST",
+            url: "API_URL",
+            success: function(response){
+                // response data is JSON | HTML
+            },
+            error: function(xhr) {
+                // xhr.statusCode, statusText, headers
+            }
+        })
+       
+Ex: Start your API
+    > node api.js
+
+JQueryAjaxDemo.js
+
+
+import { useState, useEffect } from "react";
+import $ from 'jquery';
+
+export default function JQueryAjaxDemo()
+{
+    const [users, setUsers] = useState([]);
+
+    useEffect(()=>{
+        $.ajax({
+            method: "GET",
+            url: "http://localhost:4000/getusers",
+            success: function(response){
+                setUsers(response);
+            }
+        })
+    },[])
+
+    return(
+        <div className="container-fluid">
+            <h2>User Details</h2>
+            <ol>
+                {
+                    users.map(user=>
+                        <li key={user.UserId}>{user.UserId}</li>
+                        )
+                }
+            </ol>
+        </div>
+    )
+}
+
+Ex: Register and Verify User ID
+
+JQueryAjaxDemo.js
+
+import { useState, useEffect } from "react";
+import $ from 'jquery';
+import { useFormik } from "formik";
+
+export default function JQueryAjaxDemo()
+{
+    const [users, setUsers] = useState([]);
+    const [userError, setUserError] = useState('');
+
+    const formik = useFormik({
+        initialValues : {
+            UserId:'',
+            UserName:'',
+            Password:'',
+            Age:0,
+            Mobile:'',
+            Subscribed:true,
+        },
+        onSubmit: values => {
+            $.ajax({
+                method: "POST",
+                url: "http://localhost:4000/registeruser",
+                data: values
+            })
+            alert("Registered Successfully..");
+        }
+    })
+
+    useEffect(()=>{
+        $.ajax({
+            method: "GET",
+            url: "http://localhost:4000/getusers",
+            success: function(response){
+                setUsers(response);
+            }
+        })
+    },[])
+
+    function VerifyUserId(e){
+        for(var user of users)
+        {
+            if(user.UserId==e.target.value) {
+                setUserError('User ID Taken - Try Another');
+                break;
+            } else {
+                setUserError('User ID Available');
+            }
+        }
+    }
+
+    return(
+        <div className="container-fluid">
+            <h2>Register User</h2>
+            <form onSubmit={formik.handleSubmit}>
+                <dl>
+                    <dt>User Id</dt>
+                    <dd><input type="text" onKeyUp={VerifyUserId}  value={formik.values.UserId} onChange={formik.handleChange} name="UserId" /></dd>
+                    <dd>{userError}</dd>
+                    <dt>User Name</dt>
+                    <dd><input type="text" value={formik.values.UserName} onChange={formik.handleChange} name="UserName"/></dd>
+                    <dt>Password</dt>
+                    <dd><input type="password" value={formik.values.Password} onChange={formik.handleChange} name="Password"/></dd>
+                    <dt>Age</dt>
+                    <dd><input type="number" value={formik.values.Age} onChange={formik.handleChange} name="Age"/></dd>
+                    <dt>Mobile</dt>
+                    <dd><input type="text" value={formik.values.Mobile} onChange={formik.handleChange} name="Mobile"/></dd>
+                    <dt>Subscription</dt>
+                    <dd className="form-switch"><input className="form-check-input" type="checkbox" checked={formik.values.Subscribed} onChange={formik.handleChange}  name="Subscribed"/> Yes </dd>
+                </dl>
+                <button className="btn btn-primary">Register</button>
+            </form>
+        </div>
+    )
+}
