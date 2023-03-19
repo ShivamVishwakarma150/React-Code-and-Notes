@@ -1,0 +1,132 @@
+Axios and Routing
+==================
+
+$.ajax()
+$.getJSON()
+$.ajaxStart()
+$.ajaxEnd()
+$.ajaxComplete()
+$.ajaxSuccess()
+$.ajaxError()
+
+                                        Axios
+- It returns data in JSON
+- Handles CORS
+- More secured, Prevents XSS(Cross side Scripting Attack), Request Forgery etc.
+- Handle multiple requests
+- Better Error Tracking
+
+Syntax:  Promise
+    axios({
+        method: "GET | POST",
+        url: "API_Url",
+        data: "data_to_post"
+     }).then(callback on success)
+      .catch(callback on failure)
+      .finally(callback everytime)
+
+Syntax:
+    axios.get("url").then().catch().finally()
+   
+Syntax:
+    axios({
+         [
+           { method, url, }                    - [0]
+           { method, url, }                    - [1]
+         ]
+     })
+
+
+- Axios response object comprises of various response details like
+
+            statusCode            200, 404, 302
+            statusText            OK, Not found, method
+            headers                Content-Type, MIME Type, Request Type
+            data                    Data present in requested URL
+
+- Axios post
+
+    axios.post("url", data);
+
+    axios({
+         method: "POST",
+        url: "http://localhost:4000/register/user",
+        data: values
+    })
+
+Install axios library:
+
+> npm install axios --save
+
+Ex: AxiosDemo.js
+
+import axios from "axios";
+import { useState, useEffect } from "react";
+
+export default function AxiosDemo()
+{
+    const [users, setUsers] = useState([]);
+
+    useEffect(()=>{
+        axios.get("http://localhost:4000/getusers")
+        .then(function(response){
+            setUsers(response.data);
+        }).catch(function(ex){
+            console.log(ex);
+        })
+    },[])
+
+    return(
+        <div className="container-fluid">
+            <h2>Users</h2>
+            <ol>
+                {
+                    users.map(user=>
+                        <li key={user.UserId}>{user.UserId}</li>
+                        )
+                }
+            </ol>
+        </div>
+    )
+}
+
+                              React Routing
+- Web Application uses various types of objects and techniques.
+- Regular objects in Web Development
+        1. Request
+        2. Response
+        3. Session
+        4. Application
+        5. Cookie etc..
+- Regular techniques in Web Development
+        1. Caching
+        2. Model Binding
+        3. Data Binding
+        4. Event Binding
+        5. Style Binding
+        6. Class Binding
+        7. Routing etc..
+- Routing is a technique used in modern web applications to configure USER and SEO friendly URL's.
+
+- User Friendly URL allows the user to query any content directly from url.
+
+Without Routing:
+ http://www.amazon.in/electronics.aspx?category=mobiles&model=samsung
+
+With Routing:
+ http://www.amazon.in/electronics/mobiles/samsung
+
+- SEO friendly url allows search engines to identify the exact location in page. It is mostly required for Analytics.
+
+- Routing implicitly uses Ajax
+- It can load new details into page without reloading the page.
+- User can stay of one page and can get access to everything onto the page. [SPA]
+- React uses  "react-router-dom"  library for building SPA.
+- It is a routing library for react.
+- React 18 uses  routing library version "V6".
+- React upto 18 routing library version "V5".
+
+Install React Router Library
+
+> npm install react-router-dom  --save
+> npm install react-router-dom@v5 --save
