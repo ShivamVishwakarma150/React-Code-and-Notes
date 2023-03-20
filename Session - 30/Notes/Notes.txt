@@ -1,0 +1,264 @@
+Routing Example
+================
+
+- Routing Versions    
+    V5
+    V6
+- React 18 is using V6
+- Library for routing "react-router-dom"
+
+                        Basic Routing Components
+                        -------------------------------------
+1. BrowserRouter: It transcompiles the virtual route into actual browser
+                        route.
+
+    import { BrowserRouter as Router } from 'react-router-dom';
+
+    <Router>
+            ... your routes...
+    </Router>
+    [aliasing]
+                                    (or)
+
+    import { BrowserRouter } from 'react-router-dom';
+
+    <BrowserRouter>
+           ...your routes...
+    </BrowserRouter
+
+FAQ: Which browser object of JavaScript can handle navigation?
+Ans:  location object
+        [location.href]
+
+FAQ: How to we can add a new page into current browsing history?
+Ans:  "history" object
+
+
+2. Routes    : It is a collection of routes defined for application.
+                  It creates a Routing Table.
+
+Syntax:
+        <BrowserRouter>
+            <Routes>
+                  ...your routes...
+            </Routes>
+        </BrowserRouter>
+
+3. Route        : It is used to configure a route.
+                  Every route is an object with set of properties.
+
+                 {
+                   exact,
+                   index,
+                   path,
+                   element
+                 }
+
+Syntax:
+       <Route  path=""  element={ }  index  exact> </Route>
+Ex:
+ <BrowserRouter>
+    <Routes>
+        <Route path="" ... />
+       <Route path="" .../>
+    </Routes>
+ </BrowserRouter>
+
+- Route can have collection of child routes
+
+ <Routes>
+   <Route path="" element={}>
+        <Route path="" element={} />
+        <Route path="" element={} />
+   </Route>
+</Routes>
+
+- Route can also have route parameters
+
+ <Route path=""  element={}>
+         <Route path=":params" element={} />
+ </Route>
+
+- Route can also have search parameters
+ 
+ <Route path=""  element={}>
+       <Route path=":param?key=value&key=value"  element={}/>
+ </Route>
+
+ [Mostly used in Ad-hoc querying]  
+
+4. Link        : It generates a router link.
+                  It navigates to specific path configured in route table.
+
+Syntax:
+    <Link  to="routePath"> Text | Image </Link>
+
+5. Outlet        : It configures the target location where the resulting
+                  markup must be rendered.
+
+Syntax:
+        <Main>
+        <Outlet />
+        </Main>
+
+Summary
+1. BrowserRouter
+2. Routes
+3. Route
+4. Link
+5. Outlet
+
+
+
+- Route Can Use Markup Directly from Element
+  [It can render markup directly as result]
+
+Syntax:
+    <Route  path="refName"  element={<div>your content</div>} />
+
+- If user is not requesting any specific path then you can define default content to render.
+
+Syntax:
+    <Route  path="/"  element={ default content to render } />
+
+
+- If user is requesting a path and it is not available in application then you can render wild card route.
+
+Syntax:
+    <Route  path="*"  element={content to render if reuqested is not found} />
+
+
+Ex:
+SPAComponent.js
+
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom"
+
+export default function SPAComponent()
+{
+
+    return(
+        <div className="container-fluid">
+            <BrowserRouter>
+                <nav>
+                    <ul>
+                        <li> <Link to="/html">HTML</Link> </li>
+                        <li> <Link to="/css">CSS</Link> </li>
+                        <li> <Link to="/js">JavaScript</Link> </li>
+                    </ul>
+                </nav>
+                <hr />
+                <Routes>
+                    <Route path="html" element={
+                    <main>
+                        <h2>HTML</h2>
+                        <p>It is a markup language.</p>
+                    </main>
+                    } />
+
+                    <Route path="css" element={
+                    <main>
+                        <h2>CSS</h2>
+                        <p>It defines styles.</p>
+                    </main>
+                    } />
+
+                    <Route path="js" element={
+                    <main>
+                        <h2>JavaScript</h2>
+                        <p>It is a language.</p>
+                    </main>
+                    } />
+
+                    <Route  path="/" element={
+                        <main>
+                            <h2>Home</h2>
+                            <p>Tutorial Home</p>
+                        </main>
+                    } />
+
+                    <Route path="*" element={
+                        <main>
+                            <code>Not Found : Page you requested  Not found</code>
+                        </main>
+                    } />
+                </Routes>
+            </BrowserRouter>
+        </div>
+    )
+}
+
+
+- You can render content from any component instead of using direct markup.
+
+Ex:
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom"
+
+function HTML(){
+    return(
+        <>
+        <main>
+            <h2>HTML</h2>
+            <p>It is a markup language.</p>
+        </main>
+        </>
+    )
+}
+function CSS(){
+    return(
+        <>
+         <main>
+            <h2>CSS</h2>
+            <p>It defines styles.</p>
+        </main>
+        </>
+    )
+}
+
+
+export default function SPAComponent()
+{
+
+    return(
+        <div className="container-fluid">
+            <BrowserRouter>
+                <nav>
+                    <ul>
+                        <li> <Link to="/html">HTML</Link> </li>
+                        <li> <Link to="/css">CSS</Link> </li>
+                        <li> <Link to="/js">JavaScript</Link> </li>
+                    </ul>
+                </nav>
+                <hr />
+                <Routes>
+                    <Route path="html" element={
+                       <HTML />
+                    } />
+
+                    <Route path="css" element={
+                      <CSS />
+                    } />
+
+                    <Route path="js" element={
+                    <main>
+                        <h2>JavaScript</h2>
+                        <p>It is a language.</p>
+                    </main>
+                    } />
+
+                    <Route  path="/" element={
+                        <main>
+                            <h2>Home</h2>
+                            <p>Tutorial Home</p>
+                        </main>
+                    } />
+
+                    <Route path="*" element={
+                        <main>
+                            <code>Not Found : Page you requested  Not found</code>
+                        </main>
+                    } />
+                </Routes>
+            </BrowserRouter>
+        </div>
+    )
+}
