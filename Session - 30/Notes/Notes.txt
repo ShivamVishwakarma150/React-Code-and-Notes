@@ -93,8 +93,7 @@ Ex:
 Syntax:
     <Link  to="routePath"> Text | Image </Link>
 
-5. Outlet        : It configures the target location where the resulting
-                  markup must be rendered.
+5. Outlet        : It configures the target location where the resulting markup must be rendered.
 
 Syntax:
         <Main>
@@ -125,7 +124,7 @@ Syntax:
 - If user is requesting a path and it is not available in application then you can render wild card route.
 
 Syntax:
-    <Route  path="*"  element={content to render if reuqested is not found} />
+    <Route  path="*"  element={content to render if requested path is not found} />
 
 
 Ex:
