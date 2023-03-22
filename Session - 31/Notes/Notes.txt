@@ -1,0 +1,12 @@
+React End to End Authentication with Routing
+===================================================
+
+FAQ: How to navigate to any specific path dynamically?
+Ans:  By using "useHistory()" or "useNavigate()"
+
+Syntax:
+        import {  useNavigate }  from  "react-router-dom";
+
+        let navigate = useNavigate();
+
+        navigate("path", { options }); // Here options is optional
