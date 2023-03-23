@@ -11,13 +11,13 @@ export default function IShopLogin()
     const [cookies, setCookie, removeCookie] = useCookies();
     const formik = useFormik({
         initialValues: {
-            UserId:'',
-            Password:''
+            userId:'',
+            password:''
         },
         onSubmit : values => {
             for(var user of users) {
-                if(user.UserId==values.UserId && user.Password==values.Password){
-                    setCookie("userid", user.UserId);
+                if(user.userId==values.userId && user.password==values.password){
+                    setCookie("userid", user.userId);
                     navigate("/dashboard");
                     break;
                 } else {
@@ -28,7 +28,7 @@ export default function IShopLogin()
     })
 
     useEffect(()=>{
-        axios.get("http://localhost:4000/getusers")
+        axios.get("http://localhost:2000/api/getusers")
             .then(response=> {
                 setUsers(response.data);
             })
@@ -40,9 +40,9 @@ export default function IShopLogin()
             <form onSubmit={formik.handleSubmit}>
                 <dl>
                     <dt>User Id</dt>
-                    <dd><input value={formik.values.UserId} name="UserId" onChange={formik.handleChange} type="text"/></dd>
+                    <dd><input value={formik.values.userId} name="userId" onChange={formik.handleChange} type="text"/></dd>
                     <dt>Password</dt>
-                    <dd><input  value={formik.values.Password} name="Password" onChange={formik.handleChange} type="password"/></dd>
+                    <dd><input  value={formik.values.password} name="password" onChange={formik.handleChange} type="password"/></dd>
                 </dl>
                 <button className="btn btn-primary">Login</button>
             </form>
